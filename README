@@ -1,0 +1,43 @@
+CSE508: Network Security, Spring 2016
+
+Homework 3: Plugboard Proxy
+-------------------------------------------------------------------------------
+
+A "plugboard" proxy for adding an extra layer of protection to publicly 
+accessible network services has been developed.
+
+The C program uses the OpenSSL library for all cryptographic operations, 
+and run on Linux. The program conforms to the specification mentioned in
+problem statement.
+
+Data is encrypted/decrypted using AES in CTR mode.
+
+The implementation works for multiple ssh logins and has been tested on ubuntu.
+The program should work on any linux distros.
+
+Files:
+-------
+pbproxy.c - The main driver program
+server.c - The part of the code handling connection on the server's end
+client.c - The part of the code handling connection on the client's end
+header.h - Common header file
+Utils.h - Common utilities for server.c and client.c
+Makefile - To generate the distributable
+keyfile - A sample key
+
+Execution Steps:
+-----------------
+1. make
+2. For server:
+	./pbproxy -l <server_port> -k <keyfile> localhost <ssh_port>
+3. For client:
+	ssh -o "ProxyCommand ./pbproxy -k <keyfile> <server_name> <server_port>" localhost
+
+References:
+------------
+1. http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
+2. http://www.gurutechnologies.net/blog/aes-ctr-encryption-in-c/
+3. http://beej.us/guide/bgnet/output/html/multipage/fcntlman.html
+4. http://stackoverflow.com/questions/25061656/when-is-the-arg-for-f-getfl-fcntl-command-required
+5. http://stackoverflow.com/questions/174531/easiest-way-to-get-files-contents-in-c
+
